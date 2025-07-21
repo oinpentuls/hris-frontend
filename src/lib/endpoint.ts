@@ -5,6 +5,10 @@ if (API_URL === undefined) {
 }
 
 export const endpoint = {
+    auth: {
+        login: `${API_URL}/login`,
+        logout: `${API_URL}/logout`,
+    },
     employees: {
         list: `${API_URL}/v1/employees`,
         detail: (id: string) => `${API_URL}/v1/employees/${id}`,

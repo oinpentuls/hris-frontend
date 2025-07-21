@@ -1,5 +1,4 @@
 import { AppSidebar } from '@/components/sidebar/app-sidebar'
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb'
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 
@@ -12,7 +11,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                     <div className="flex items-center gap-2 px-3">
                         <SidebarTrigger />
                         <Separator orientation="vertical" className="mr-2 h-4" />
-                        <Breadcrumb>
+                        {/* <Breadcrumb>
                             <BreadcrumbList>
                                 <BreadcrumbItem className="hidden md:block">
                                     <BreadcrumbLink href="#">
@@ -24,7 +23,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                                     <BreadcrumbPage>Data Fetching</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
-                        </Breadcrumb>
+                        </Breadcrumb> */}
                     </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4">
