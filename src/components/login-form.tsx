@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { loginSchema, type LoginSchemaType } from "@/authentication/login-schema"
+import { loginSchema, type LoginSchemaType } from "@/authentication/login/login-schema"
 import { useMutation } from "@tanstack/react-query"
-import { login } from "@/authentication/mutation"
+import { login } from "@/authentication/login/mutation"
 import { toast } from "sonner"
 import { ApiError } from "@/lib/fetch"
 import { Loader2 } from "lucide-react"
+import { Link } from "@tanstack/react-router"
 
 export function LoginForm({
   className,
@@ -95,7 +96,7 @@ export function LoginForm({
           <Button type="submit" className="cursor-pointer w-full" disabled={mutation.isPending}>
             Login {mutation.isPending && <Loader2 className="animate-spin" />}
           </Button>
-          
+
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-background text-muted-foreground relative z-10 px-2">
               Or continue with
@@ -113,9 +114,9 @@ export function LoginForm({
         </div>
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}
-          <a href="#" className="underline underline-offset-4">
+          <Link to="/register" className="underline underline-offset-4">
             Sign up
-          </a>
+          </Link>
         </div>
       </form>
     </Form>
