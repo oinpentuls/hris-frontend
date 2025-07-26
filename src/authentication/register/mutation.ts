@@ -3,7 +3,7 @@ import { ApiError } from "@/lib/fetch"
 
 export type RegisterPayload = {
     companyName: string
-    email: string
+    companyEmail: string
     password: string
     passwordConfirmation: string
 }

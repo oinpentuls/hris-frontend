@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link } from "@tanstack/react-router"
+import { Link, useNavigate } from "@tanstack/react-router"
 import { useMutation } from "@tanstack/react-query"
-import { AlertCircleIcon, Loader2 } from "lucide-react"
+import { AlertCircleIcon, Eye, EyeOff, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -17,17 +17,20 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 function RegisterForm() {
     const [errors, setError] = useState<string[] | null>(null)
+    const [passwordVisible, setPasswordVisible] = useState(false)
+    const [passwordConfirmationVisible, setPasswordConfirmationVisible] = useState(false)
 
     const form = useForm<RegisterSchemaType>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
             companyName: "",
-            email: "",
+            companyEmail: "",
             password: "",
             passwordConfirmation: "",
         },
     })
 
+    const navigate = useNavigate();
     const mutation = useMutation({
         mutationFn: register,
         onSuccess: () => {
@@ -35,6 +38,9 @@ function RegisterForm() {
             form.reset()
             form.clearErrors()
             setError(null)
+            setTimeout(() => {
+                navigate({ to: '/login' })
+            }, 500)
         },
         onError: async (e) => {
             if (e instanceof ApiError) {
@@ -103,7 +109,7 @@ function RegisterForm() {
 
                     <FormField
                         control={form.control}
-                        name="email"
+                        name="companyEmail"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Company Email <span className="text-destructive">*</span></FormLabel>
@@ -121,7 +127,17 @@ function RegisterForm() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input type="password" autoComplete="current-password" placeholder="password" {...field} />
+                                    <div className="relative">
+                                        <Input type={passwordVisible ? "text" : "password"} autoComplete="current-password" placeholder="password" {...field} />
+                                        <Button
+                                            variant="ghost"
+                                            size={"icon"}
+                                            type="button"
+                                            onClick={() => setPasswordVisible(!passwordVisible)}
+                                            className="absolute right-2 top-1/2 -translate-y-1/2">
+                                            {passwordVisible ? <Eye className="w-4 h-4 cursor-pointer" /> : <EyeOff className="w-4 h-4 cursor-pointer" />}
+                                        </Button>
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -135,7 +151,17 @@ function RegisterForm() {
                             <FormItem>
                                 <FormLabel>Password Confirmation</FormLabel>
                                 <FormControl>
-                                    <Input type="password" autoComplete="current-password" placeholder="password" {...field} />
+                                    <div className="relative">
+                                        <Input type={passwordConfirmationVisible ? "text" : "password"} autoComplete="current-password" placeholder="password" {...field} />
+                                        <Button
+                                            variant="ghost"
+                                            size={"icon"}
+                                            type="button"
+                                            onClick={() => setPasswordConfirmationVisible(!passwordConfirmationVisible)}
+                                            className="absolute right-2 top-1/2 -translate-y-1/2">
+                                            {passwordConfirmationVisible ? <Eye className="w-4 h-4 cursor-pointer" /> : <EyeOff className="w-4 h-4 cursor-pointer" />}
+                                        </Button>
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

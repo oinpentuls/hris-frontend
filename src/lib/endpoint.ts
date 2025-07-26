@@ -7,7 +7,7 @@ if (API_URL === undefined) {
 export const endpoint = {
     auth: {
         login: `${API_URL}/login`,
-        register: `${API_URL}/register`,
+        register: `${API_URL}/api/register`,
         logout: `${API_URL}/logout`,
     },
     employees: {
